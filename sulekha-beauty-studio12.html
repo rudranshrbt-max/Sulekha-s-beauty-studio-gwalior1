@@ -1,0 +1,1916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sulekha's Beauty Studio Gwalior | Luxury Beauty & Bridal Makeup</title>
+<meta name="description" content="Gwalior's premier luxury beauty studio. Expert bridal makeup, hair styling, skin treatments, and home beauty services. 4.8★ rated. Book now.">
+<meta name="keywords" content="beauty studio gwalior, bridal makeup gwalior, luxury salon gwalior, HD makeup gwalior, hair spa gwalior">
+<meta property="og:title" content="Sulekha's Beauty Studio Gwalior">
+<meta property="og:description" content="Luxury Beauty. Timeless Confidence.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+<style>
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8D5A3;
+  --gold-deep: #8B6914;
+  --noir: #0A0807;
+  --charcoal: #1A1612;
+  --dark: #120F0B;
+  --nude: #F5EDE0;
+  --nude-dark: #E8D9C4;
+  --cream: #FAF6F0;
+  --muted: #8A7A6A;
+  --white: #FFFFFF;
+  --glass: rgba(10,8,7,0.6);
+  --glass-gold: rgba(201,168,76,0.08);
+  --font-display: 'Cormorant Garamond', serif;
+  --font-fell: 'IM Fell English', serif;
+  --font-body: 'Jost', sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--noir);
+  color: var(--nude);
+  font-family: var(--font-body);
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* CUSTOM CURSOR */
+.cursor {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s;
+  mix-blend-mode: normal;
+}
+.cursor-ring {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(201,168,76,0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: all 0.15s ease;
+}
+
+/* LOADER */
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  background: var(--noir);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+.loader-logo {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  opacity: 0;
+}
+.loader-line {
+  width: 200px;
+  height: 1px;
+  background: var(--charcoal);
+  position: relative;
+  overflow: hidden;
+}
+.loader-line::after {
+  content: '';
+  position: absolute;
+  left: -100%;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  animation: scanline 1.8s ease-in-out forwards;
+}
+.loader-pct {
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  color: var(--muted);
+}
+@keyframes scanline {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1.5rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.4s ease;
+}
+nav.scrolled {
+  background: rgba(10,8,7,0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(201,168,76,0.12);
+  padding: 1rem 4rem;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 400;
+}
+.nav-logo span {
+  display: block;
+  font-size: 0.45rem;
+  letter-spacing: 0.5em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+  align-items: center;
+}
+.nav-links a {
+  color: var(--nude-dark);
+  text-decoration: none;
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.3s;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover::after { width: 100%; }
+.nav-cta {
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold) !important;
+  padding: 0.55rem 1.4rem !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 0.25em;
+  cursor: none;
+  transition: all 0.3s !important;
+}
+.nav-cta:hover {
+  background: var(--gold) !important;
+  color: var(--noir) !important;
+}
+.nav-cta::after { display: none !important; }
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: none;
+  padding: 4px;
+}
+.nav-hamburger span {
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--gold);
+  transition: all 0.3s;
+}
+
+/* HERO */
+#hero {
+  position: relative;
+  height: 100vh;
+  min-height: 700px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+#hero-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 60% 50%, rgba(201,168,76,0.05) 0%, transparent 70%),
+              linear-gradient(to right, rgba(10,8,7,0.9) 40%, rgba(10,8,7,0.3) 100%);
+  z-index: 1;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  padding: 0 4rem;
+}
+.hero-eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 0.5em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  line-height: 1.05;
+  font-weight: 300;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--gold);
+}
+.hero-sub {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--nude-dark);
+  max-width: 480px;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  font-weight: 300;
+}
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  opacity: 0;
+}
+.btn-primary {
+  background: var(--gold);
+  color: var(--noir);
+  border: none;
+  padding: 0.9rem 2rem;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  cursor: none;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s;
+  font-weight: 500;
+}
+.btn-primary:hover { background: var(--gold-light); }
+.btn-ghost {
+  background: transparent;
+  color: var(--nude);
+  border: 1px solid rgba(245,237,224,0.3);
+  padding: 0.9rem 2rem;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  cursor: none;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s;
+}
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+.btn-wa {
+  background: rgba(37,211,102,0.12);
+  border: 1px solid rgba(37,211,102,0.3);
+  color: #25d366;
+  padding: 0.9rem 1.6rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: none;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  transition: all 0.3s;
+}
+.btn-wa:hover { background: rgba(37,211,102,0.2); }
+
+/* Rating badge */
+.hero-rating {
+  position: absolute;
+  bottom: 3rem;
+  right: 4rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  opacity: 0;
+}
+.rating-card {
+  background: rgba(26,22,18,0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(201,168,76,0.2);
+  padding: 0.8rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.rating-stars {
+  color: var(--gold);
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+.rating-num {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--gold);
+  line-height: 1;
+}
+.rating-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+/* Scroll indicator */
+.scroll-cue {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  opacity: 0;
+}
+.scroll-cue span {
+  font-size: 0.55rem;
+  letter-spacing: 0.4em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.scroll-line {
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scrollpulse 2s ease-in-out infinite;
+}
+@keyframes scrollpulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.1); }
+}
+
+/* SECTIONS */
+section { padding: 7rem 4rem; }
+
+.section-eyebrow {
+  font-size: 0.6rem;
+  letter-spacing: 0.5em;
+  color: var(--gold);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.section-eyebrow::before {
+  content: '';
+  width: 30px;
+  height: 1px;
+  background: var(--gold);
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+}
+.section-title em {
+  font-style: italic;
+  color: var(--gold);
+}
+.divider-gold {
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+  margin: 2rem 0;
+}
+
+/* ABOUT */
+#about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+.about-visual {
+  position: relative;
+}
+.about-img-frame {
+  width: 100%;
+  padding-bottom: 120%;
+  position: relative;
+  background: var(--charcoal);
+  overflow: hidden;
+}
+.about-img-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 30% 30%, rgba(201,168,76,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 70%, rgba(201,168,76,0.08) 0%, transparent 50%);
+}
+.about-img-frame canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.about-ornament {
+  position: absolute;
+  top: -1.5rem;
+  left: -1.5rem;
+  right: 1.5rem;
+  bottom: -1.5rem;
+  border: 1px solid rgba(201,168,76,0.15);
+  pointer-events: none;
+}
+.about-badge {
+  position: absolute;
+  bottom: 2rem;
+  right: -2rem;
+  background: var(--gold);
+  color: var(--noir);
+  padding: 1.2rem;
+  text-align: center;
+  min-width: 100px;
+}
+.about-badge-num {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1;
+  display: block;
+}
+.about-badge-text {
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: block;
+  margin-top: 0.3rem;
+}
+.about-text p {
+  font-size: 0.95rem;
+  line-height: 1.9;
+  color: var(--nude-dark);
+  margin-bottom: 1.5rem;
+}
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin: 2.5rem 0;
+  border: 1px solid rgba(201,168,76,0.15);
+}
+.stat-item {
+  padding: 1.5rem;
+  text-align: center;
+  border-right: 1px solid rgba(201,168,76,0.15);
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--gold);
+  line-height: 1;
+  font-weight: 400;
+}
+.stat-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-top: 0.4rem;
+}
+
+/* SERVICES */
+#services { background: var(--dark); }
+.services-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+.services-header .section-eyebrow { justify-content: center; }
+.services-header .section-eyebrow::before { display: none; }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5px;
+  background: rgba(201,168,76,0.1);
+}
+.service-card {
+  background: var(--dark);
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  cursor: none;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(201,168,76,0.06) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.service-card:hover::before { opacity: 1; }
+.service-card:hover { background: var(--charcoal); }
+.service-icon {
+  font-size: 1.8rem;
+  margin-bottom: 1.2rem;
+  display: block;
+  opacity: 0.6;
+}
+.service-num {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  font-family: var(--font-display);
+  font-size: 3rem;
+  color: rgba(201,168,76,0.06);
+  font-weight: 600;
+  line-height: 1;
+}
+.service-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 0.6rem;
+}
+.service-card p {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+.service-meta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.service-tag {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.25);
+  padding: 0.3rem 0.7rem;
+}
+.service-price {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: var(--nude-dark);
+}
+.service-book {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+  cursor: none;
+  transition: gap 0.3s;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(201,168,76,0.1);
+  width: 100%;
+}
+.service-book:hover { gap: 1rem; }
+.service-card .home-badge {
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  background: rgba(37,211,102,0.1);
+  color: #25d366;
+  border: 1px solid rgba(37,211,102,0.2);
+  padding: 0.25rem 0.6rem;
+  text-transform: uppercase;
+}
+
+/* BOOKING SECTION */
+#booking {
+  background: var(--noir);
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 5rem;
+  align-items: start;
+}
+.booking-info .section-title { margin-bottom: 1rem; }
+.booking-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.booking-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(201,168,76,0.12);
+  cursor: none;
+  transition: all 0.3s;
+}
+.booking-option:hover, .booking-option.active {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.05);
+}
+.booking-option-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+.booking-option h4 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--white);
+  margin-bottom: 0.3rem;
+  font-weight: 400;
+}
+.booking-option p {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.booking-form {
+  background: var(--charcoal);
+  border: 1px solid rgba(201,168,76,0.12);
+  padding: 2.5rem;
+}
+.booking-form h3 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--white);
+  margin-bottom: 0.4rem;
+  font-weight: 400;
+}
+.booking-form p {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+.form-group label {
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(201,168,76,0.15);
+  color: var(--nude);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  outline: none;
+  transition: border-color 0.3s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--gold);
+}
+.form-group select option { background: var(--charcoal); }
+.form-group textarea { resize: vertical; min-height: 80px; }
+.slot-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.slot {
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  border: 1px solid rgba(201,168,76,0.15);
+  cursor: none;
+  transition: all 0.2s;
+  color: var(--nude-dark);
+}
+.slot:hover, .slot.active { 
+  border-color: var(--gold); 
+  background: rgba(201,168,76,0.1);
+  color: var(--gold);
+}
+.slot.taken {
+  opacity: 0.3;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+.form-submit {
+  width: 100%;
+  background: var(--gold);
+  color: var(--noir);
+  border: none;
+  padding: 1rem;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  cursor: none;
+  transition: all 0.3s;
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+.form-submit:hover { background: var(--gold-light); }
+.form-note {
+  font-size: 0.65rem;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 1rem;
+  line-height: 1.6;
+}
+
+/* TESTIMONIALS */
+#testimonials { background: var(--charcoal); text-align: center; }
+.testimonials-header .section-eyebrow { justify-content: center; }
+.testimonials-header .section-eyebrow::before { display: none; }
+.testimonials-header { margin-bottom: 4rem; }
+.testimonials-track {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: hidden;
+  position: relative;
+}
+.testi-card {
+  background: var(--dark);
+  border: 1px solid rgba(201,168,76,0.1);
+  padding: 2.5rem;
+  flex: 0 0 calc(33.33% - 1rem);
+  min-width: 280px;
+  text-align: left;
+  transition: all 0.4s;
+  position: relative;
+}
+.testi-card::before {
+  content: '"';
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-family: var(--font-display);
+  font-size: 5rem;
+  color: rgba(201,168,76,0.08);
+  line-height: 1;
+}
+.testi-stars {
+  color: var(--gold);
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  margin-bottom: 1rem;
+}
+.testi-text {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--nude-dark);
+  margin-bottom: 1.5rem;
+  font-style: italic;
+  font-family: var(--font-fell);
+}
+.testi-author {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.testi-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--charcoal);
+  border: 1px solid rgba(201,168,76,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--gold);
+}
+.testi-name {
+  font-size: 0.8rem;
+  color: var(--white);
+  font-weight: 500;
+}
+.testi-meta {
+  font-size: 0.65rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.testi-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2.5rem;
+}
+.testi-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(201,168,76,0.25);
+  cursor: none;
+  transition: all 0.3s;
+}
+.testi-dot.active {
+  background: var(--gold);
+  width: 20px;
+  border-radius: 3px;
+}
+
+/* HOME VISIT SECTION */
+#homevisit {
+  background: linear-gradient(135deg, var(--noir) 0%, var(--charcoal) 100%);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+#homevisit::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at center, rgba(201,168,76,0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+.homevisit-content {
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.homevisit-content .section-eyebrow { justify-content: center; }
+.homevisit-content .section-eyebrow::before { display: none; }
+.homevisit-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 3rem 0;
+}
+.hv-feature {
+  padding: 1.5rem;
+  border: 1px solid rgba(201,168,76,0.12);
+  background: rgba(26,22,18,0.5);
+}
+.hv-feature-icon { font-size: 1.5rem; margin-bottom: 0.8rem; display: block; }
+.hv-feature h4 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--white);
+  margin-bottom: 0.4rem;
+  font-weight: 400;
+}
+.hv-feature p {
+  font-size: 0.75rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* CONTACT */
+#contact {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 4rem;
+  padding: 7rem 4rem;
+  background: var(--dark);
+}
+.contact-info { display: flex; flex-direction: column; gap: 0; }
+.contact-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(201,168,76,0.08);
+}
+.contact-icon {
+  font-size: 1.1rem;
+  color: var(--gold);
+  flex-shrink: 0;
+  width: 24px;
+  margin-top: 2px;
+}
+.contact-detail h4 {
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+.contact-detail a {
+  color: var(--nude-dark);
+  text-decoration: none;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  transition: color 0.3s;
+  display: block;
+}
+.contact-detail a:hover { color: var(--gold); }
+.contact-detail p {
+  color: var(--nude-dark);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.contact-social {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.social-link {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(201,168,76,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: all 0.3s;
+  cursor: none;
+}
+.social-link:hover {
+  background: var(--gold);
+  color: var(--noir);
+  border-color: var(--gold);
+}
+.map-wrapper {
+  border: 1px solid rgba(201,168,76,0.12);
+  overflow: hidden;
+  position: relative;
+}
+.map-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(201,168,76,0.06);
+  z-index: 1;
+  pointer-events: none;
+}
+.map-wrapper iframe {
+  display: block;
+  filter: grayscale(20%) brightness(0.8) sepia(10%);
+}
+
+/* FOOTER */
+footer {
+  background: var(--noir);
+  border-top: 1px solid rgba(201,168,76,0.1);
+  padding: 3rem 4rem;
+}
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--gold);
+  letter-spacing: 0.2em;
+}
+.footer-logo span {
+  display: block;
+  font-size: 0.5rem;
+  letter-spacing: 0.4em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+.footer-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+.footer-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+.footer-links a:hover { color: var(--gold); }
+.footer-copy {
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+/* FLOATING WA */
+.float-wa {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 900;
+  background: #25d366;
+  color: #fff;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  text-decoration: none;
+  cursor: none;
+  box-shadow: 0 0 0 0 rgba(37,211,102,0.4);
+  animation: wapulse 2.5s infinite;
+  transition: all 0.3s;
+}
+.float-wa:hover { transform: scale(1.1); }
+@keyframes wapulse {
+  0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.4); }
+  70% { box-shadow: 0 0 0 15px rgba(37,211,102,0); }
+  100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+}
+
+/* MOBILE NAV */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 990;
+  background: rgba(10,8,7,0.97);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--nude);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  transition: color 0.3s;
+}
+.mobile-menu a:hover { color: var(--gold); }
+.mobile-close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: none;
+  border: none;
+  color: var(--gold);
+  font-size: 1.5rem;
+  cursor: none;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  nav { padding: 1.2rem 1.5rem; }
+  nav.scrolled { padding: 0.8rem 1.5rem; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  section { padding: 5rem 1.5rem; }
+  #about { grid-template-columns: 1fr; gap: 3rem; }
+  #booking { grid-template-columns: 1fr; gap: 2.5rem; }
+  #contact { grid-template-columns: 1fr; padding: 5rem 1.5rem; }
+  .hero-content { padding: 0 1.5rem; }
+  .hero-rating { right: 1.5rem; bottom: 2rem; }
+  .homevisit-features { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .stats-row .stat-item:last-child { grid-column: span 2; border-right: none; border-top: 1px solid rgba(201,168,76,0.15); }
+  .form-row { grid-template-columns: 1fr; }
+  .slot-grid { grid-template-columns: repeat(3,1fr); }
+  .about-badge { right: -0.5rem; }
+  .footer-inner { flex-direction: column; text-align: center; }
+  footer { padding: 2rem 1.5rem; }
+  .cursor, .cursor-ring { display: none; }
+  body { cursor: auto; }
+  a, button { cursor: auto !important; }
+}
+
+/* ANIMATIONS */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* GOLD LINE ORNAMENT */
+.gold-ornament {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.gold-ornament::before, .gold-ornament::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(201,168,76,0.2);
+}
+.gold-ornament span {
+  font-size: 0.7rem;
+  color: var(--gold);
+}
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Loader -->
+<div id="loader">
+  <div class="loader-logo">Sulekha's Beauty Studio</div>
+  <div class="loader-line"></div>
+  <div class="loader-pct">Curating Your Experience</div>
+</div>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="closeMobile()">✕</button>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#booking" onclick="closeMobile()">Book</a>
+  <a href="#testimonials" onclick="closeMobile()">Reviews</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- Navigation -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    Sulekha's
+    <span>Beauty Studio · Gwalior</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#homevisit">Home Visit</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#booking" class="nav-cta">Book Now</a></li>
+  </ul>
+  <button class="nav-hamburger" onclick="openMobile()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Hero -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow" id="hEyebrow">Gwalior's Premier Luxury Studio</div>
+    <h1 class="hero-title" id="hTitle">
+      Elevate<br>Your <em>Beauty</em><br>Experience
+    </h1>
+    <p class="hero-sub" id="hSub">
+      Luxury beauty transformations, premium skincare, and flawless makeup artistry. Where every visit is a ceremony of elegance.
+    </p>
+    <div class="hero-actions" id="hActions">
+      <a href="#booking" class="btn-primary">Book Appointment ↗</a>
+      <a href="https://wa.me/919200529586" class="btn-wa" target="_blank">💬 WhatsApp Now</a>
+      <a href="tel:+919200529586" class="btn-ghost">📞 Call Studio</a>
+    </div>
+  </div>
+  <div class="hero-rating" id="hRating">
+    <div class="rating-card">
+      <div>
+        <div class="rating-stars">★★★★★</div>
+        <div class="rating-num">4.8</div>
+        <div class="rating-label">37+ Reviews · Google</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue" id="scrollCue">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="about-visual reveal">
+    <div class="about-ornament"></div>
+    <div class="about-img-frame" id="aboutFrame">
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem;">
+        <div style="font-family:var(--font-display);font-size:3.5rem;color:var(--gold);opacity:0.15;font-weight:300;letter-spacing:0.1em;text-align:center;line-height:1.1;">
+          Beauty<br><em style="font-style:italic;">Art</em>
+        </div>
+        <div style="width:80px;height:1px;background:rgba(201,168,76,0.2);"></div>
+        <div style="font-size:0.6rem;letter-spacing:0.4em;color:var(--muted);text-transform:uppercase;">Est. Gwalior</div>
+        <div id="about3d" style="position:absolute;inset:0;"></div>
+      </div>
+    </div>
+    <div class="about-badge">
+      <span class="about-badge-num">4.8★</span>
+      <span class="about-badge-text">Google Rated</span>
+    </div>
+  </div>
+  <div class="about-text">
+    <div class="section-eyebrow reveal">The Studio Story</div>
+    <h2 class="section-title reveal reveal-delay-1">
+      Art Meets<br><em>Elegance</em>
+    </h2>
+    <div class="divider-gold reveal reveal-delay-2"></div>
+    <p class="reveal reveal-delay-2">
+      Sulekha's Beauty Studio Gwalior is a luxury beauty destination focused on elegance, confidence, and deeply personalized beauty experiences. We combine professional expertise with premium products and modern techniques to deliver high-end transformations tailored to every client.
+    </p>
+    <p class="reveal reveal-delay-3">
+      From breathtaking bridal makeup to precision haircare and advanced skin treatments — every service is performed with the care and artistry of true beauty professionals. Open daily 11 AM to 8 PM. Home visits available across Gwalior.
+    </p>
+    <div class="stats-row reveal reveal-delay-3">
+      <div class="stat-item">
+        <div class="stat-num" data-count="500">500+</div>
+        <div class="stat-label">Happy Clients</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-count="37">37+</div>
+        <div class="stat-label">Google Reviews</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-count="12">12+</div>
+        <div class="stat-label">Services</div>
+      </div>
+    </div>
+    <div class="hero-actions reveal reveal-delay-4">
+      <a href="#booking" class="btn-primary">Book a Session ↗</a>
+      <a href="https://maps.app.goo.gl/R3d8rHvmsr8P2nMu8" class="btn-ghost" target="_blank">Get Directions</a>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section id="services">
+  <div class="services-header reveal">
+    <div class="section-eyebrow">What We Offer</div>
+    <h2 class="section-title">Luxury <em>Services</em></h2>
+    <p style="color:var(--muted);font-size:0.85rem;max-width:500px;margin:0 auto;line-height:1.8;">
+      Each service is crafted with precision, premium products, and an unwavering commitment to your beauty vision.
+    </p>
+  </div>
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <span class="service-icon">💍</span>
+      <span class="service-num">01</span>
+      <h3>Bridal Makeup</h3>
+      <p>Complete bridal transformations with HD finish, airbrush techniques, and long-lasting formulas for your most important day.</p>
+      <div class="service-meta">
+        <span class="service-tag">Trial Available</span>
+        <span class="service-tag home-badge">Home Visit ✓</span>
+      </div>
+      <div class="service-price">Starting ₹3,500</div>
+      <a href="#booking" class="service-book">Book Now →</a>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">✨</span>
+      <span class="service-num">02</span>
+      <h3>HD Makeup</h3>
+      <p>High-definition makeup designed to look flawless under cameras and lights. Perfect for events, photoshoots, and parties.</p>
+      <div class="service-meta">
+        <span class="service-tag">Camera Ready</span>
+        <span class="service-tag home-badge">Home Visit ✓</span>
+      </div>
+      <div class="service-price">Starting ₹1,800</div>
+      <a href="#booking" class="service-book">Book Now →</a>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">💫</span>
+      <span class="service-num">03</span>
+      <h3>Hair Styling</h3>
+      <p>Expert hair styling from traditional braids to contemporary updos and blow-outs. Styled to complement your look perfectly.</p>
+      <div class="service-meta">
+        <span class="service-tag">All Hair Types</span>
+        <span class="service-tag home-badge">Home Visit ✓</span>
+      </div>
+      <div class="service-price">Starting ₹500</div>
+      <a href="#booking" class="service-book">Book Now →</a>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🌿</span>
+      <span class="service-num">04</span>
+      <h3>Hair Spa & Color</h3>
+      <p>Revitalizing hair spa treatments and professional color services. Restore shine, health, and vibrancy to your hair.</p>
+      <div class="service-meta">
+        <span class="service-tag">Premium Products</span>
+      </div>
+      <div class="service-price">Starting ₹800</div>
+      <a href="#booking" class="service-book">Book Now →</a>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🪄</span>
+      <span class="service-num">05</span>
+      <h3>Keratin Treatment</h3>
+      <p>Professional keratin smoothening for frizz-free, silky hair with long-lasting results. Suitable for all hair textures.</p>
+      <div class="service-meta">
+        <span class="service-tag">6–8 Month Results</span>
+      </div>
+      <div class="service-price">Starting ₹2,500</div>
+      <a href="#booking" class="service-book">Book Now →</a>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🌸</span>
+      <span class="service-num">06</span>
+      <h3>Facials & Skin</h3>
+      <p>Advanced facial treatments and skin therapies using premium products to reveal radiant, glowing skin.</p>
+      <div class="service-meta">
+        <span class="service-tag">Customized</span>
+        <span class="service-tag home-badge">Home Visit ✓</span>
+      </div>
+      <div class="service-price">Starting ₹700</div>
+      <a href="#booking" class="service-book">Book Now →</a>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">💅</span>
+      <span class="service-num">07</span>
+      <h3>Nail Extensions</h3>
+      <p>Nail art, extensions, gel manicures, and pedicures. Express your style with precision nail craftsmanship.</p>
+      <div class="service-meta">
+        <span class="service-tag">Gel & Acrylic</span>
+      </div>
+      <div class="service-price">Starting ₹600</div>
+      <a href="#booking" class="service-book">Book Now →</a>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🎭</span>
+      <span class="service-num">08</span>
+      <h3>Party Makeup</h3>
+      <p>Dazzling party and event makeup designed to make you stand out. From subtle glam to full dramatic looks.</p>
+      <div class="service-meta">
+        <span class="service-tag">Any Occasion</span>
+        <span class="service-tag home-badge">Home Visit ✓</span>
+      </div>
+      <div class="service-price">Starting ₹1,200</div>
+      <a href="#booking" class="service-book">Book Now →</a>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🏠</span>
+      <span class="service-num">09</span>
+      <h3>Home Beauty Services</h3>
+      <p>Our expert artists come to you. Enjoy the full studio experience in the comfort and privacy of your home.</p>
+      <div class="service-meta">
+        <span class="service-tag home-badge">Home Visit ✓</span>
+        <span class="service-tag">All Gwalior</span>
+      </div>
+      <div class="service-price">Service + Travel</div>
+      <a href="#booking" class="service-book">Book Now →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Booking -->
+<section id="booking">
+  <div class="booking-info">
+    <div class="section-eyebrow reveal">Reserve Your Session</div>
+    <h2 class="section-title reveal reveal-delay-1">Book Your<br><em>Appointment</em></h2>
+    <p style="color:var(--muted);font-size:0.85rem;line-height:1.8;" class="reveal reveal-delay-2">
+      Choose how you'd like to experience the luxury of Sulekha's Beauty Studio.
+    </p>
+    <div class="booking-options reveal reveal-delay-2">
+      <div class="booking-option active" onclick="selectOption(this)">
+        <div class="booking-option-icon">🏠</div>
+        <div>
+          <h4>Home Visit</h4>
+          <p>Our professionals travel to your location. Perfect for bridal events, parties, or when you simply prefer the comfort of home.</p>
+        </div>
+      </div>
+      <div class="booking-option" onclick="selectOption(this)">
+        <div class="booking-option-icon">✂</div>
+        <div>
+          <h4>Studio Visit</h4>
+          <p>Visit our luxury studio in City Center, Patel Nagar. Open daily 11 AM – 8 PM. Full range of services available.</p>
+        </div>
+      </div>
+    </div>
+    <div class="contact-detail reveal reveal-delay-3" style="padding-top:2rem;border-top:1px solid rgba(201,168,76,0.08);margin-top:2rem;">
+      <div class="contact-icon">📍</div>
+      <div>
+        <h4>Studio Address</h4>
+        <p>B111, near Bank of Maharashtra, City Center<br>Patel Nagar, Gwalior, MP 474002</p>
+        <p style="font-size:0.75rem;color:var(--muted);margin-top:0.5rem;">Open Daily: 11:00 AM – 8:00 PM</p>
+      </div>
+    </div>
+  </div>
+  <div class="booking-form reveal reveal-delay-2">
+    <h3>Schedule a Session</h3>
+    <p>Fill in your details and we'll confirm within 2 hours via WhatsApp.</p>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" placeholder="Full Name">
+      </div>
+      <div class="form-group">
+        <label>Phone / WhatsApp</label>
+        <input type="tel" placeholder="+91 XXXXX XXXXX">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Select Service</label>
+      <select>
+        <option value="">Choose a Service</option>
+        <option>Bridal Makeup</option>
+        <option>HD Makeup</option>
+        <option>Hair Styling</option>
+        <option>Hair Spa</option>
+        <option>Hair Color</option>
+        <option>Keratin Treatment</option>
+        <option>Facial / Skin Treatment</option>
+        <option>Nail Extensions</option>
+        <option>Party Makeup</option>
+        <option>Home Beauty Service</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Preferred Date</label>
+        <input type="date">
+      </div>
+      <div class="form-group">
+        <label>Appointment Type</label>
+        <select>
+          <option>Studio Visit</option>
+          <option>Home Visit</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Available Time Slots</label>
+      <div class="slot-grid">
+        <div class="slot">11:00 AM</div>
+        <div class="slot">12:00 PM</div>
+        <div class="slot taken">1:00 PM</div>
+        <div class="slot">2:00 PM</div>
+        <div class="slot">3:00 PM</div>
+        <div class="slot taken">4:00 PM</div>
+        <div class="slot">5:00 PM</div>
+        <div class="slot">6:00 PM</div>
+        <div class="slot">7:00 PM</div>
+        <div class="slot">7:30 PM</div>
+        <div class="slot taken">—</div>
+        <div class="slot taken">—</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Special Requests</label>
+      <textarea placeholder="Any preferences, notes, or event details..."></textarea>
+    </div>
+    <button class="form-submit" onclick="submitBooking()">Confirm Appointment ↗</button>
+    <p class="form-note">
+      Or book instantly via WhatsApp: <a href="https://wa.me/919200529586" style="color:var(--gold);text-decoration:none;" target="_blank">+91 92005 29586</a><br>
+      Confirmation within 2 hours · No advance payment required
+    </p>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section id="testimonials">
+  <div class="testimonials-header">
+    <div class="section-eyebrow reveal">Client Stories</div>
+    <h2 class="section-title reveal reveal-delay-1">What Our Clients <em>Say</em></h2>
+  </div>
+  <div class="testimonials-track reveal" id="testiTrack">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Sulekha ji did my bridal makeup and I was absolutely stunned. She understood my vision perfectly and made me feel like a queen on my wedding day. The look lasted all day and night!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">P</div>
+        <div>
+          <div class="testi-name">Priya Sharma</div>
+          <div class="testi-meta">Bridal Makeup · Gwalior</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"The best salon experience I've had in Gwalior. The studio is so elegant and clean, and the staff is incredibly professional. My keratin treatment was done perfectly and my hair has never looked better."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">N</div>
+        <div>
+          <div class="testi-name">Nandini Verma</div>
+          <div class="testi-meta">Keratin Treatment · City Center</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"I booked the home visit service for my mother's birthday party. The artist arrived on time with all the equipment and did beautiful party makeup for all of us. Highly recommend the home visit option!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">A</div>
+        <div>
+          <div class="testi-name">Ananya Singh</div>
+          <div class="testi-meta">Home Visit · Patel Nagar</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Absolutely love this place! The HD makeup for my cousin's sangeet was beyond expectations. My photos came out so beautiful. Worth every penny — they truly understand beauty artistry."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">R</div>
+        <div>
+          <div class="testi-name">Ritu Agarwal</div>
+          <div class="testi-meta">HD Makeup · Gwalior</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"The facial and skin treatment I had here has completely transformed my skin. They used premium products and tailored everything to my skin type. I leave feeling like a whole new person every time."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">M</div>
+        <div>
+          <div class="testi-name">Meera Joshi</div>
+          <div class="testi-meta">Facial Treatment · City Center</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="testi-dots reveal">
+    <div class="testi-dot active"></div>
+    <div class="testi-dot"></div>
+    <div class="testi-dot"></div>
+  </div>
+</section>
+
+<!-- Home Visit CTA -->
+<section id="homevisit">
+  <div class="homevisit-content">
+    <div class="section-eyebrow reveal">Luxury at Your Doorstep</div>
+    <h2 class="section-title reveal reveal-delay-1">Home <em>Beauty</em><br>Services</h2>
+    <p style="color:var(--muted);font-size:0.9rem;line-height:1.8;margin-bottom:1rem;" class="reveal reveal-delay-2">
+      Can't come to us? We come to you. Our professional artists bring the full studio experience to your home — with premium equipment, hygiene standards, and the same luxury you'd expect in-studio.
+    </p>
+    <div class="homevisit-features reveal reveal-delay-2">
+      <div class="hv-feature">
+        <span class="hv-feature-icon">✈</span>
+        <h4>We Travel to You</h4>
+        <p>Available across Gwalior, Patel Nagar & surrounding areas</p>
+      </div>
+      <div class="hv-feature">
+        <span class="hv-feature-icon">🧴</span>
+        <h4>Premium Products</h4>
+        <p>Same luxury products used in-studio, brought to your location</p>
+      </div>
+      <div class="hv-feature">
+        <span class="hv-feature-icon">⏰</span>
+        <h4>On Your Schedule</h4>
+        <p>Flexible timings to suit weddings, events, or personal preference</p>
+      </div>
+    </div>
+    <div class="hero-actions reveal reveal-delay-3" style="justify-content:center;">
+      <a href="https://wa.me/919200529586?text=Hi%20Sulekha's%20Studio%21%20I%27d%20like%20to%20book%20a%20Home%20Visit%20service." class="btn-wa" target="_blank">💬 Book Home Visit</a>
+      <a href="#booking" class="btn-ghost">Schedule Studio Visit</a>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="contact-info">
+    <div class="section-eyebrow reveal">Find Us</div>
+    <h2 class="section-title reveal reveal-delay-1">Visit the <em>Studio</em></h2>
+    <div class="divider-gold reveal reveal-delay-1"></div>
+
+    <div class="contact-detail reveal reveal-delay-2">
+      <div class="contact-icon">📍</div>
+      <div>
+        <h4>Address</h4>
+        <a href="https://maps.app.goo.gl/R3d8rHvmsr8P2nMu8" target="_blank">B111, near Bank of Maharashtra<br>City Center, Patel Nagar<br>Gwalior, MP 474002</a>
+      </div>
+    </div>
+    <div class="contact-detail reveal reveal-delay-2">
+      <div class="contact-icon">📞</div>
+      <div>
+        <h4>Phone & WhatsApp</h4>
+        <a href="tel:+919200529586">+91 92005 29586</a>
+        <a href="https://wa.me/919200529586" target="_blank" style="color:var(--gold);font-size:0.75rem;margin-top:0.3rem;">Open in WhatsApp →</a>
+      </div>
+    </div>
+    <div class="contact-detail reveal reveal-delay-3">
+      <div class="contact-icon">📧</div>
+      <div>
+        <h4>Email</h4>
+        <a href="mailto:contact@sulekhabeautystudio.com">contact@sulekhabeautystudio.com</a>
+      </div>
+    </div>
+    <div class="contact-detail reveal reveal-delay-3">
+      <div class="contact-icon">🕐</div>
+      <div>
+        <h4>Business Hours</h4>
+        <p>Open Daily · 11:00 AM – 8:00 PM</p>
+      </div>
+    </div>
+
+    <div class="contact-social reveal reveal-delay-4">
+      <a href="https://instagram.com/sulekhabeautystudio" class="social-link" target="_blank" title="Instagram">📷</a>
+      <a href="https://facebook.com/sulekhabeautystudio" class="social-link" target="_blank" title="Facebook">👤</a>
+      <a href="https://wa.me/919200529586" class="social-link" target="_blank" title="WhatsApp">💬</a>
+      <a href="tel:+919200529586" class="social-link" title="Call">📞</a>
+    </div>
+  </div>
+  <div class="map-wrapper reveal reveal-delay-2">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3579.6266427543246!2d78.18721707557091!3d26.208820977073717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3976c56c7b45b9df%3A0x38f673482012a2b8!2sSulekha&#39;s%20beauty%20studio%20gwalior!5e0!3m2!1sen!2sin!4v1779444090805!5m2!1sen!2sin"
+      width="100%"
+      height="500"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      Sulekha's Beauty Studio
+      <span>Luxury Beauty · Gwalior, MP</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#booking">Book</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="footer-copy">
+      © 2025 Sulekha's Beauty Studio · B111 City Center, Patel Nagar, Gwalior
+    </div>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp -->
+<a href="https://wa.me/919200529586?text=Hi%21%20I%27d%20like%20to%20book%20an%20appointment%20at%20Sulekha%27s%20Beauty%20Studio." class="float-wa" target="_blank" title="WhatsApp Us">💬</a>
+
+<script>
+// Cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+});
+function animRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+document.querySelectorAll('a, button, .slot, .booking-option, .service-card').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    ring.style.transform = 'translate(-50%,-50%) scale(1.6)';
+    ring.style.borderColor = 'rgba(201,168,76,0.8)';
+  });
+  el.addEventListener('mouseleave', () => {
+    ring.style.transform = 'translate(-50%,-50%) scale(1)';
+    ring.style.borderColor = 'rgba(201,168,76,0.5)';
+  });
+});
+
+// Loader
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader');
+  const logo = loader.querySelector('.loader-logo');
+  gsap.to(logo, { opacity: 1, duration: 0.5, delay: 0.3 });
+  setTimeout(() => {
+    gsap.to(loader, {
+      opacity: 0, duration: 0.8, delay: 1.2, ease: 'power2.inOut',
+      onComplete: () => { loader.style.display = 'none'; initHeroAnim(); }
+    });
+  }, 0);
+});
+
+// Hero animation
+function initHeroAnim() {
+  gsap.to('#hEyebrow', { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' });
+  gsap.to('#hTitle', { opacity: 1, y: 0, duration: 0.9, delay: 0.2, ease: 'power2.out' });
+  gsap.to('#hSub', { opacity: 1, y: 0, duration: 0.8, delay: 0.45, ease: 'power2.out' });
+  gsap.to('#hActions', { opacity: 1, y: 0, duration: 0.8, delay: 0.65, ease: 'power2.out' });
+  gsap.to('#hRating', { opacity: 1, duration: 0.8, delay: 0.9, ease: 'power2.out' });
+  gsap.to('#scrollCue', { opacity: 1, duration: 0.8, delay: 1.2, ease: 'power2.out' });
+}
+
+// Nav scroll
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  if (window.scrollY > 80) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+
+// Mobile menu
+function openMobile() { document.getElementById('mobileMenu').classList.add('open'); }
+function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+// Reveal on scroll
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+revealEls.forEach(el => observer.observe(el));
+
+// Slots
+document.querySelectorAll('.slot:not(.taken)').forEach(s => {
+  s.addEventListener('click', () => {
+    document.querySelectorAll('.slot').forEach(x => x.classList.remove('active'));
+    s.classList.add('active');
+  });
+});
+
+// Booking option
+function selectOption(el) {
+  document.querySelectorAll('.booking-option').forEach(x => x.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// Booking submit
+function submitBooking() {
+  const name = document.querySelector('.booking-form input[type=text]').value;
+  const phone = document.querySelector('.booking-form input[type=tel]').value;
+  const service = document.querySelector('.booking-form select').value;
+  if (!name || !phone || !service) {
+    alert('Please fill in your name, phone, and select a service.');
+    return;
+  }
+  const msg = `Hi Sulekha's Beauty Studio! I'd like to book:\n\nName: ${name}\nPhone: ${phone}\nService: ${service}\n\nPlease confirm my appointment.`;
+  window.open('https://wa.me/919200529586?text=' + encodeURIComponent(msg), '_blank');
+}
+
+// ─── THREE.JS HERO CANVAS ───
+(function() {
+  const canvas = document.getElementById('hero-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+  camera.position.z = 5;
+
+  // Particles
+  const count = 800;
+  const geo = new THREE.BufferGeometry();
+  const pos = new Float32Array(count * 3);
+  const sizes = new Float32Array(count);
+  for (let i = 0; i < count; i++) {
+    pos[i*3] = (Math.random() - 0.5) * 14;
+    pos[i*3+1] = (Math.random() - 0.5) * 10;
+    pos[i*3+2] = (Math.random() - 0.5) * 6;
+    sizes[i] = Math.random() * 3 + 0.5;
+  }
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+  const mat = new THREE.PointsMaterial({
+    color: 0xC9A84C,
+    size: 0.035,
+    transparent: true,
+    opacity: 0.5,
+    sizeAttenuation: true,
+  });
+  const particles = new THREE.Points(geo, mat);
+  scene.add(particles);
+
+  // Golden rings
+  for (let i = 0; i < 3; i++) {
+    const rGeo = new THREE.TorusGeometry(1.5 + i * 0.8, 0.003, 8, 100);
+    const rMat = new THREE.MeshBasicMaterial({ color: 0xC9A84C, transparent: true, opacity: 0.12 - i * 0.03 });
+    const ring = new THREE.Mesh(rGeo, rMat);
+    ring.rotation.x = Math.PI * (0.3 + i * 0.2);
+    ring.rotation.y = Math.PI * i * 0.15;
+    ring.userData = { speed: 0.002 + i * 0.001, axis: i % 2 === 0 ? 'y' : 'x' };
+    scene.add(ring);
+  }
+
+  let mouse = { x: 0, y: 0 };
+  document.addEventListener('mousemove', e => {
+    mouse.x = (e.clientX / window.innerWidth - 0.5) * 0.5;
+    mouse.y = -(e.clientY / window.innerHeight - 0.5) * 0.5;
+  });
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  const clock = new THREE.Clock();
+  function animate() {
+    requestAnimationFrame(animate);
+    const t = clock.getElapsedTime();
+    particles.rotation.y = t * 0.02 + mouse.x * 0.3;
+    particles.rotation.x = mouse.y * 0.2;
+    scene.children.forEach(child => {
+      if (child.userData.speed) {
+        if (child.userData.axis === 'y') child.rotation.y += child.userData.speed;
+        else child.rotation.x += child.userData.speed;
+        child.rotation.z += child.userData.speed * 0.3;
+      }
+    });
+    renderer.render(scene, camera);
+  }
+  animate();
+})();
+
+// Testimonials auto-scroll
+(function() {
+  const track = document.getElementById('testiTrack');
+  const dots = document.querySelectorAll('.testi-dot');
+  let current = 0;
+  const cards = track.querySelectorAll('.testi-card');
+  const total = Math.floor(cards.length / 3);
+  setInterval(() => {
+    current = (current + 1) % (cards.length - 2);
+    const w = cards[0].offsetWidth + 24;
+    track.style.transform = `translateX(-${current * w}px)`;
+    track.style.transition = 'transform 0.8s cubic-bezier(0.22,1,0.36,1)';
+    dots.forEach((d, i) => d.classList.toggle('active', i === current % dots.length));
+  }, 3500);
+})();
+</script>
+</body>
+</html>
